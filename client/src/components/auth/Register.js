@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectRegister } from '../../reducers/registerSlice';
+import { registerUser } from '../../reducers/registerSlice';
+import PropTypes from 'prop-types';
 
 const Register = () => {
-    
+    const dispatch = useDispatch();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
-
+    
+    const registerList = useSelector(selectRegister);
+    // console.log(registerList);
 
     const HandleChange = (e) => {
         const {name, value} = e.target;
@@ -37,8 +43,11 @@ const Register = () => {
             password,
             password2
         };
-        console.log(newUser);
+        // console.log(newUser);
+      dispatch(registerUser(newUser));
     }
+
+    console.log(registerList);
 
     return (
         <>  
@@ -119,5 +128,12 @@ const Register = () => {
         </>
     )       
 }
+
+
+
+// Register.propTypes = {
+//   registerUser: PropTypes.func.isRequired,
+//   auth: PropTypes.object.isRequired
+// };
 
 export default Register;
